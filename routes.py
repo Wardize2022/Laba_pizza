@@ -23,7 +23,9 @@ def register_routes(app):
     # УЧАСТНИК 3: Акции — конец
 
     # УЧАСТНИК 4: Доставка и оплата — начало
-    pass
+    @app.route("/delivery")
+    def delivery():
+        return render_template("delivery.html")
     # УЧАСТНИК 4: Доставка и оплата — конец
 
     # УЧАСТНИК 5: Контакты — начало
