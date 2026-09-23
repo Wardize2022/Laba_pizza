@@ -17,7 +17,9 @@ def register_routes(app):
     # УЧАСТНИК 2: Меню — конец
 
     # УЧАСТНИК 3: Акции — начало
-    pass
+    @app.route("/promotions")
+    def promotions():
+        return render_template("promotions.html")
     # УЧАСТНИК 3: Акции — конец
 
     # УЧАСТНИК 4: Доставка и оплата — начало
