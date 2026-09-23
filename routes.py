@@ -11,7 +11,9 @@ def register_routes(app):
     # УЧАСТНИК 1: Главная — конец
 
     # УЧАСТНИК 2: Меню — начало
-    pass
+    @app.route("/menu")
+    def menu():
+        return render_template("menu.html")
     # УЧАСТНИК 2: Меню — конец
 
     # УЧАСТНИК 3: Акции — начало
