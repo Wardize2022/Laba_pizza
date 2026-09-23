@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Пять сыров{% endblock %} | Пиццерия</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <a class="skip-link" href="#content">Перейти к содержанию</a>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="/">Пять сыров<span>пиццерия</span></a>
+            <nav aria-label="Основная навигация">
+                <a href="/" {% if request.path == '/' %}aria-current="page"{% endif %}>Главная</a>
+                <a href="/menu" {% if request.path == '/menu' %}aria-current="page"{% endif %}>Меню</a>
+                <a href="/promotions" {% if request.path == '/promotions' %}aria-current="page"{% endif %}>Акции</a>
+                <a href="/delivery" {% if request.path == '/delivery' %}aria-current="page"{% endif %}>Доставка и оплата</a>
+                <a href="/contacts" {% if request.path == '/contacts' %}aria-current="page"{% endif %}>Контакты</a>
+            </nav>
+        </div>
+    </header>
+    <main id="content" class="container">
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="site-footer">
+        <div class="container">
+            <p><strong>Пять сыров.</strong> Учебный проект по лабораторной работе № 1.</p>
+            <p>Заведение, адрес и предложения вымышлены. Приём заказов не реализован.</p>
+        </div>
+    </footer>
+</body>
+</html>
