@@ -29,5 +29,7 @@ def register_routes(app):
     # УЧАСТНИК 4: Доставка и оплата — конец
 
     # УЧАСТНИК 5: Контакты — начало
-    pass
+    @app.route("/contacts")
+    def contacts():
+        return render_template("contacts.html")
     # УЧАСТНИК 5: Контакты — конец
