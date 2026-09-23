@@ -5,7 +5,9 @@ def register_routes(app):
     """Регистрирует маршруты на переданном Flask-приложении."""
 
     # УЧАСТНИК 1: Главная — начало
-    pass
+    @app.route("/")
+    def index():
+        return render_template("index.html")
     # УЧАСТНИК 1: Главная — конец
 
     # УЧАСТНИК 2: Меню — начало
