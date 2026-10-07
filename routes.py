@@ -1,4 +1,5 @@
 from flask import render_template
+from catalog import PIZZAS
 
 
 def register_routes(app):
@@ -13,7 +14,7 @@ def register_routes(app):
     # УЧАСТНИК 2: Меню — начало
     @app.route("/menu")
     def menu():
-        return render_template("menu.html")
+        return render_template("menu.html", pizzas=PIZZAS)
     # УЧАСТНИК 2: Меню — конец
 
     # УЧАСТНИК 3: Акции — начало
