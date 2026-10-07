@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Пять сыров{% endblock %} | Пиццерия</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head %}{% endblock %}
 </head>
 <body>
     <a class="skip-link" href="#content">Перейти к содержанию</a>
@@ -20,13 +21,23 @@
             </nav>
         </div>
     </header>
+    <div class="account-bar"><div class="container account-inner">
+        <a href="{{ url_for('shop.cart') }}">Корзина · {{ cart_count }}</a>
+        {% if g.user %}
+        <a href="{{ url_for('orders.mine') }}">Мои заказы</a>
+        {% if g.user.is_admin %}<a href="{{ url_for('admin.dashboard') }}">Админ-панель</a>{% endif %}
+        <span class="account-name">{{ g.user.name }}</span>
+        <form method="post" action="{{ url_for('auth.logout') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="link-button">Выйти</button></form>
+        {% else %}<a href="{{ url_for('auth.login') }}">Войти</a><a href="{{ url_for('auth.register') }}">Регистрация</a>{% endif %}
+    </div></div>
     <main id="content" class="container">
+        {% for category, message in get_flashed_messages(with_categories=true) %}<div class="flash {{ category }}" role="status">{{ message }}</div>{% endfor %}
         {% block content %}{% endblock %}
     </main>
     <footer class="site-footer">
         <div class="container">
-            <p><strong>Пять сыров.</strong> Учебный проект по лабораторной работе № 1.</p>
-            <p>Заведение, адрес и предложения вымышлены. Приём заказов не реализован.</p>
+            <p><strong>Пять сыров.</strong> Учебная пиццерия на Flask.</p>
+            <p>Пиццерия вымышленная, точка на карте учебная. Заказы демонстрационные: без реальной оплаты и доставки.</p>
         </div>
     </footer>
 </body>

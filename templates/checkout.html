@@ -1,0 +1,15 @@
+{% extends "base.html" %}{% block title %}Оформление заказа{% endblock %}
+{% block content %}<section class="page-heading"><p class="eyebrow">Почти готово</p><h1>Оформить заказ</h1><p class="lead">Учебный заказ: деньги не списываются, настоящая доставка не выполняется.</p></section>
+<div class="checkout-grid"><form method="post" class="card form-card">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="checkout_token" value="{{ session['checkout_token'] }}">
+<label for="fulfillment">Способ получения</label><select id="fulfillment" name="fulfillment"><option value="delivery" {% if mode=='delivery' %}selected{% endif %}>Доставка</option><option value="pickup" {% if mode=='pickup' %}selected{% endif %}>Самовывоз −10%</option></select>
+<label for="name">Имя получателя</label><input id="name" name="name" value="{{ values.name }}" minlength="2" maxlength="60" autocomplete="name" required>
+<label for="phone">Телефон</label><input id="phone" name="phone" type="tel" value="{{ values.phone }}" maxlength="25" autocomplete="tel" placeholder="+7 900 123-45-67" required>
+<label for="address">Адрес доставки</label><input id="address" name="address" value="{{ values.address }}" maxlength="250" autocomplete="street-address" placeholder="Улица, дом, квартира"><p class="hint">От 10 символов. Для самовывоза адрес заполнять не нужно.</p>
+<label for="comment">Комментарий (необязательно)</label><textarea id="comment" name="comment" maxlength="500" rows="3">{{ values.comment }}</textarea>
+<p>Оплата при получении — условная, без онлайн-платежа.</p><button class="button">Подтвердить учебный заказ</button></form>
+<aside><section class="card"><h2>В заказе</h2>{% for p in items %}<p>{{ p.name }} × {{ p.quantity }} <strong>{{ (p.price*p.quantity)|money }}</strong></p>{% endfor %}</section>
+{% for kind, quote in quotes.items() %}<section class="card section quote" data-kind="{{ kind }}"><h2>{{ 'Доставка' if kind=='delivery' else 'Самовывоз' }}</h2>
+<dl class="totals"><dt>Пиццы</dt><dd>{{ quote.subtotal|money }}</dd><dt>Скидка</dt><dd>−{{ quote.discount|money }}</dd><dt>Доставка</dt><dd>{{ quote.delivery_fee|money }}</dd><dt><strong>Итого</strong></dt><dd><strong>{{ quote.total|money }}</strong></dd></dl>
+{% if kind=='delivery' and quote.subtotal-quote.discount < 50000 %}<p class="form-error">Для доставки нужно от 500 ₽ после скидки. Сейчас доступен самовывоз.</p>{% endif %}</section>{% endfor %}
+<p class="hint section">Показаны оба варианта расчёта. Заказ будет оформлен с выбранным слева способом получения.</p></aside></div>{% endblock %}

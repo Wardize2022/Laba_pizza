@@ -10,7 +10,7 @@
     <article class="card">
         <h2>Адрес и связь</h2>
         <address>
-            <p>г. Учебный, ул. Примерная, 5</p>
+            <p>{{ pizzeria_address }}</p>
             <p>Телефон: +7 (000) 000-00-00 — пример, не для звонков</p>
             <p>Почта: info@example.com — демонстрационный адрес</p>
         </address>
@@ -24,7 +24,13 @@
 </section>
 <section class="section callout">
     <h2>Как добраться</h2>
-    <p>В учебном примере пиццерия находится рядом с остановкой «Центральная площадь». От остановки нужно пройти 200 метров по улице Примерной. Вход — со стороны улицы.</p>
-    <p>Адрес вымышленный, поэтому реальная карта не подключена.</p>
+    <p>Для учебного проекта выбрана точка по адресу: {{ pizzeria_address }}. Откройте карту ниже, чтобы посмотреть расположение.</p>
+    <p>Адрес используется для демонстрации. Пиццерия «Пять сыров» вымышленная, реального обслуживания по этому адресу проект не предлагает.</p>
+</section>
+<section class="section" aria-labelledby="map-title">
+    <h2 id="map-title">Пять сыров — условная точка</h2>
+    <p>Google Maps · {{ pizzeria_address }}.</p>
+    <iframe class="location-map" title="Google Maps: Будапештская улица, 38, Санкт-Петербург" src="{{ map_embed_url }}" width="100%" height="380" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    <p class="hint">Для карты нужен интернет. Если она не загрузилась, <a href="{{ map_link }}" target="_blank" rel="noopener noreferrer">открыть точку в Google Maps</a>.</p>
 </section>
 {% endblock %}
