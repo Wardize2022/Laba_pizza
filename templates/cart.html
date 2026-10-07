@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block title %}Корзина{% endblock %}
+{% block content %}<section class="page-heading"><p class="eyebrow">Собираем компанию</p><h1>Ваша корзина</h1></section>
+{% if items %}<form method="post"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<div class="table-wrap"><table><thead><tr><th>Пицца</th><th>Цена</th><th>Количество</th><th>Сумма</th></tr></thead><tbody>
+{% for p in items %}<tr><th scope="row">{{ p.name }} · 30 см</th><td>{{ p.price|money }}</td><td><input class="quantity" type="number" min="0" max="20" name="quantity_{{ p.id }}" value="{{ p.quantity }}" aria-label="Количество: {{ p.name }}" required></td><td>{{ (p.price * p.quantity)|money }}</td></tr>{% endfor %}
+</tbody></table></div><p class="hint">Чтобы удалить пиццу, укажите 0 и нажмите «Обновить корзину».</p><button class="button button-secondary">Обновить корзину</button></form>
+<section class="section callout"><h2>Пиццы: {{ subtotal|money }}</h2><p>Скидка и стоимость доставки рассчитываются на следующем шаге. После изменения количества сначала обновите корзину.</p><a class="button" href="{{ url_for('shop.checkout') }}">Перейти к оформлению</a> <a href="/menu">Добавить ещё пиццу</a></section>
+{% else %}<section class="card empty"><h2>Здесь пока пусто</h2><p>Выберите первую пиццу — остальное дело вкуса.</p><a class="button" href="/menu">Открыть меню</a></section>{% endif %}{% endblock %}
